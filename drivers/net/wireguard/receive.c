@@ -120,8 +120,8 @@ static void wg_receive_handshake_packet(struct wg_device *wg,
 	}
 	mac_state = wg_cookie_validate_packet(&wg->cookie_checker, skb,
 					      under_load);
-	if ((under_load && mac_state == VALID_MAC_WITH_COOKIE) ||
-	    (!under_load && mac_state == VALID_MAC_BUT_NO_COOKIE)) {
+	if (mac_state == VALID_MAC_WITH_COOKIE ||
+	    !under_load && mac_state == VALID_MAC_BUT_NO_COOKIE) {
 		packet_needs_cookie = false;
 	} else if (under_load && mac_state == VALID_MAC_BUT_NO_COOKIE) {
 		packet_needs_cookie = true;
